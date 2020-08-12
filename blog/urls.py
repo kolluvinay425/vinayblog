@@ -1,15 +1,23 @@
-from . import views
-from django.urls import include
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
-from django.urls import path
-from .feeds import LatestPostsFeed, AtomSiteNewsFeed
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
+
+
+sitemaps = {
+    "posts": PostSitemap,
+}
 
 urlpatterns = [
-    path("feed/rss", LatestPostsFeed(), name="post_feed"),
-    path("feed/atom", AtomSiteNewsFeed()),
-    path("", views.PostList.as_view(), name="home"),
-    path("newpost/",views.createpost,name="createpost"),
-    # path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
-    path("<slug:slug>/", views.post_detail, name="post_detail"),
+    path("admin/", admin.site.urls),
+    path("", include("blog.urls"), name="blog-urls"),
+    path("summernote/", include("django_summernote.urls")),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

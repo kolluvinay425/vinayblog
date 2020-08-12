@@ -15,11 +15,9 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -30,7 +28,7 @@ SECRET_KEY = '9x5mt8%@&3knj4id7w%-6(z6onqle%^x73-^i9_u=ngrj_%sol'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','localhost','vinayblog.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
     'crispy_forms',
     'django_summernote',
+    
 ]
 
 MIDDLEWARE = [
@@ -64,7 +63,7 @@ ROOT_URLCONF = 'myblog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,6 +131,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
 STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
+
+
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -140,14 +147,9 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Media paths
 
 # Base url to serve media files
-STATICFILES_STORAGE = 'whitenoise.storage.GzipManifestStaticFilesStorage'
-
-
 MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
 
 django_heroku.settings(locals())
