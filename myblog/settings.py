@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
+import decouple 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'blog',
     'crispy_forms',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +138,14 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Media paths
 
 # Base url to serve media files
+STATICFILES_STORAGE = 'whitenoise.storage.GzipManifestStaticFilesStorage'
+
+
 MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+
+django_heroku.settings(locals())
