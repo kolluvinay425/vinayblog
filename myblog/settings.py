@@ -28,7 +28,7 @@ SECRET_KEY = '9x5mt8%@&3knj4id7w%-6(z6onqle%^x73-^i9_u=ngrj_%sol'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0','localhost','vinayblog.herokuapp.com']
 
 
 # Application definition
